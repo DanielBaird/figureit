@@ -15,6 +15,8 @@ If you know those things, you can treat for parasites on the right days to get r
 
 I wrote workit to do all the working out, so barra farmers can just type in their temperature and salinity, and get a plain english recommendation about when they should treat their barramundi.
 
+![screenshot](https://raw.github.com/DanielBaird/workit/examples/example01.screenshot.png)
+
 How do I use it?
 ----------------
 
