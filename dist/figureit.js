@@ -20,11 +20,11 @@
     if (typeof define === 'function' && define.amd) {
         define(factory); // ...if so, register as an AMD module
     } else {
-        root.workit = factory(); // ..if not, install as a browser global
+        root.figureit = factory(); // ..if not, install as a browser global
     }
 }(this, function() {
 
-    var oldWorkit = window.workit;
+    var oldFigureit = window.figureit;
 
     // private funcs & vars =========================================
 
@@ -64,11 +64,11 @@
                     return
                 }
                 if (severity === 'warn') {
-                    window.console.warn('[workit warn ]', message);
+                    window.console.warn('[figureit warn ]', message);
                 } else {
                     // pad severity to min 5 chars long (or longer if necessary)
                     var padded = (severity + "     ").substr(0, Math.max(severity.length, 5));
-                    window.console.log('[workit ' + padded + ']', message);
+                    window.console.log('[figureit ' + padded + ']', message);
                 }
             });
         }
@@ -104,8 +104,8 @@
         debug:    (document.URL.indexOf('debug') >= 0),  // true or false
         logTo:    'console',        // 'none', 'console', or an element id
         logLevel: 'info',           // 'debug', 'info', 'warn'
-        form:     'workitform',     // string id, or reference to HTML element
-        output:   'workitresult',   // string id, or reference to HTML element
+        form:     'figureitform',     // string id, or reference to HTML element
+        output:   'figureitresult',   // string id, or reference to HTML element
         showCalcDetail: 'true'
     }
 
@@ -293,7 +293,7 @@
 
             // cool now we've got indexes for the best matches.
             if (bestRows.length > 1) {
-                this.log('there are multiple best table rows: ' + bestRows.join(', ') + ' workit will use the first', 'info');
+                this.log('there are multiple best table rows: ' + bestRows.join(', ') + ' figureit will use the first', 'info');
             }
 
             var bestRow = bestRows[0];
@@ -471,7 +471,7 @@
         },
         // ----------------------------------------------------------
         noConflict: function() {
-            window.workit = oldWorkit;
+            window.figureit = oldFigureit;
         }
         // ----------------------------------------------------------
     };

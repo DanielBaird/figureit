@@ -1,7 +1,7 @@
-workit
+figureit
 ======
 
-workit.js – a library for making your scientific formulae and other data accessible to the world.  They set some inputs, and your carefully
+figureit.js – a library for making your scientific formulae and other data accessible to the world.  They set some inputs, and your carefully
 calculated conclusions are figured out, right in their browser window.
 
 But.. what is it?
@@ -13,9 +13,9 @@ A scientist once spent a lot of time studying the parasites that infect the fish
 
 If you know those things, you can treat for parasites on the right days to get rid of them.  So this scientist devised a set of formulae so that if you knew the temperature and salinity, you could work out all that important information.
 
-I wrote workit to do all the working out, so barra farmers can just type in their temperature and salinity, and get a plain english recommendation about when they should treat their barramundi.
+I wrote figureit to do all the working out, so barra farmers can just type in their temperature and salinity, and get a plain english recommendation about when they should treat their barramundi.
 
-![screenshot](https://github.com/DanielBaird/workit/raw/master/examples/example01.screenshot.png)
+![screenshot](https://github.com/DanielBaird/figureit/raw/master/examples/example01.screenshot.png)
 
 How do I use it?
 ----------------
