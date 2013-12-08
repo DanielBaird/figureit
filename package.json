@@ -1,0 +1,40 @@
+{
+  "name": "figureit",
+  "version": "0.0.0",
+  "description": "A browser lib that lets regular people use your scientific calculations",
+  "author": "Daniel Baird <daniel@danielbaird.com>",
+  "license": "BSD",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/DanielBaird/figureit.git"
+  },
+  "bugs": "http://github.com/DanielBaird/figureit/issues",
+  "keywords": [
+    "formula",
+    "formulae",
+    "science",
+    "outreach",
+    "equations",
+    "tables"
+  ],
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {
+    "mocha": "~1.15.1",
+    "grunt": "~0.4.2",
+    "grunt-mocha": "~0.4.7",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-cssmin": "~0.7.0"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "scripts": {
+    "test": "mocha"
+  }
+}
