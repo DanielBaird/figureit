@@ -20,29 +20,32 @@
     if (typeof define === 'function' && define.amd) {
         define(factory); // ...if so, register as an AMD module
     } else {
-        root.figureit = factory(); // ..if not, install as a browser global
+        root.workit = factory(); // ..if not, install as a browser global
     }
 }(this, function() {
 
-    var oldFigureit = window.figureit;
+    var oldWorkit = window.workit;
 
     // private funcs & vars =========================================
 
     // shim in a forEach implementation for sassafrassin' IE
     if (!Array.prototype.forEach) { Array.prototype.forEach = function (fn, scope) {
         'use strict'; var i, len; for (i = 0, len = this.length; i < len; ++i) { if (i in this) { fn.call(scope, this[i], i, this); } }
-    }};
+    };}
 
     // convenience functions coz I'm a lazy typist
 
     // shorter document.getElementById
-    var elemId = function(id) { return document.getElementById(id); }
+    var elemId = function(id) { return document.getElementById(id); };
 
     //browser-independent way to attach events
     var attach = function(element, eventType, handler) {
-        if (element.addEventListener) { element.addEventListener(eventType, handler, false) }
-        else if (element.attachEvent) { element.attachEvent('on' + eventType, handler) };
-    }
+        if (element.addEventListener) {
+            element.addEventListener(eventType, handler, false);
+        } else if (element.attachEvent) {
+            element.attachEvent('on' + eventType, handler);
+        }
+    };
 
     // this function returns a function I'll use to log -------------
     var logFactory = function(whereToLogTo, level, additional) {
@@ -54,21 +57,21 @@
         // return an appropriate logging function
         if (whereToLogTo === 'none' || (whereToLogTo === 'console' && (!window.console))) {
             // log to none: return a do-nothing function
-            return (function() {})
+            return (function() {});
         }
         if (whereToLogTo === 'console') {
             // log to console: return a log function that just console.logs
             return (function(message, severity) {
                 severity = severity || 'info';
                 if (levelsToHide.indexOf(severity) != -1) {
-                    return
+                    return;
                 }
                 if (severity === 'warn') {
-                    window.console.warn('[figureit warn ]', message);
+                    window.console.warn('[workit warn ]', message);
                 } else {
                     // pad severity to min 5 chars long (or longer if necessary)
                     var padded = (severity + "     ").substr(0, Math.max(severity.length, 5));
-                    window.console.log('[figureit ' + padded + ']', message);
+                    window.console.log('[workit ' + padded + ']', message);
                 }
             });
         }
@@ -80,23 +83,23 @@
             return (function(message, severity) {
                 severity = severity || 'info';
                 if (levelsToHide.indexOf(severity) != -1) {
-                    return
+                    return;
                 }
                 // pad severity to min 5 chars long (or longer if necessary)
                 var padded = (severity + "     ").substr(0, Math.max(severity.length, 5));
                 elem.innerHTML += '[' + padded + '] ' + message + "\n";
             });
         }
-    }
+    };
 
     // functions for use in expressions -----------------------------
-    var p2 = function(x) { return Math.pow(x,2); } // power of two
-    var p3 = function(x) { return Math.pow(x,3); } // power of three
-    var p4 = function(x) { return Math.pow(x,4); } // power of four
+    var p2 = function(x) { return Math.pow(x,2); }; // power of two
+    var p3 = function(x) { return Math.pow(x,3); }; // power of three
+    var p4 = function(x) { return Math.pow(x,4); }; // power of four
     var sq = p2; // squared => power of two
     var cu = p3; // cubed => power of three
-    var pow = function(x,y) { return Math.pow(x,y); } // x to the power of y
-    var round = function(x,places) { var tens = Math.pow(10,places); return (round(x * tens)/tens); }
+    var pow = function(x,y) { return Math.pow(x,y); }; // x to the power of y
+    var round = function(x,places) { var tens = Math.pow(10,places); return (round(x * tens)/tens); };
 
 
     // default options ----------------------------------------------
@@ -104,10 +107,10 @@
         debug:    (document.URL.indexOf('debug') >= 0),  // true or false
         logTo:    'console',        // 'none', 'console', or an element id
         logLevel: 'info',           // 'debug', 'info', 'warn'
-        form:     'figureitform',     // string id, or reference to HTML element
-        output:   'figureitresult',   // string id, or reference to HTML element
+        form:     'workitform',     // string id, or reference to HTML element
+        output:   'workitresult',   // string id, or reference to HTML element
         showCalcDetail: 'true'
-    }
+    };
 
     return {
         // public funcs =============================================
@@ -116,8 +119,9 @@
 
             // merge together user options and default options
             this.options = {};
-            for (var attr in defaultOpts) { this.options[attr] = defaultOpts[attr]; }
-            for (var attr in userOpts)    { this.options[attr] = userOpts[attr]; }
+            var attr;
+            for (attr in defaultOpts) { this.options[attr] = defaultOpts[attr]; }
+            for (attr in userOpts)    { this.options[attr] = userOpts[attr]; }
 
             // set up logging
             if (this.options.logTo === 'none' || this.options.logTo === 'console') {
@@ -243,8 +247,8 @@
                                     this.results[theVar.abbr] = value;
                                 }
                             }
-                        } else { valuesOkay = false }
-                    } else { valuesOkay = false }
+                        } else { valuesOkay = false; }
+                    } else { valuesOkay = false; }
 
                 }
             }, this);
@@ -270,7 +274,7 @@
                     this.log('testing table rows against var "' + theVar.abbr + '"', 'debug');
 
                     var truth = this.results[theVar.abbr];
-                    var delta = function(a, b) { return Math.abs(a - b); }
+                    var delta = function(a, b) { return Math.abs(a - b); };
                     var bestDelta = delta(this.table[bestRows[0]][theVar.abbr], truth);
                     bestRows.forEach( function(rowIndex) {
                         var candidateDelta = delta(truth, this.table[rowIndex][theVar.abbr]);
@@ -293,7 +297,7 @@
 
             // cool now we've got indexes for the best matches.
             if (bestRows.length > 1) {
-                this.log('there are multiple best table rows: ' + bestRows.join(', ') + ' figureit will use the first', 'info');
+                this.log('there are multiple best table rows: ' + bestRows.join(', ') + ' workit will use the first', 'info');
             }
 
             var bestRow = bestRows[0];
@@ -325,6 +329,10 @@
                         this.results[theVar.abbr + '_termsInfo'] = [];
 
                         // loop through the terms, working each one out and adding them up
+                        // first get a func ready..
+                        var insertVar = function(inputVar) {
+                            expression = expression.replace(inputVar.abbr, '('+ this.results[inputVar.abbr] +')');
+                        };
                         while (term--) {
                             var termInfo = {};
 
@@ -332,16 +340,14 @@
                             var expression = theVar.terms[term];
                             termInfo.exprInitial = expression;
 
-                            data.vars.forEach( function(inputVar) {
-                                expression = expression.replace(inputVar.abbr, '('+ this.results[inputVar.abbr] +')');
-                            }, this);
+                            data.vars.forEach( insertVar(inputVar), this);
 
                             termInfo.exprReplaced = expression;
-                            termInfo.exprResult = eval(expression);
+                            termInfo.exprResult = eval(expression);  // jshint ignore:line
                             termInfo.coefficient = theVar.coefficients[term];
 
                             // now evaluate the expression and multiply by the coefficient
-                            var thisTerm = theVar.coefficients[term] * eval(expression);
+                            var thisTerm = theVar.coefficients[term] * eval(expression);   // jshint ignore:line
                             termInfo.result = thisTerm;
                             sum += thisTerm;
                             this.results[theVar.abbr + '_termsInfo'].unshift(termInfo);
@@ -386,7 +392,7 @@
                     if (resultPrecise) {
                         resultDiv += '<span class="value" title="raw value: ' + resultPrecise + ' ' + theVar.units + '">' + (result || '-') + '</span>';
                     } else {
-                        resultDiv += '<span class="value">' + (result || '-') + '</span>'
+                        resultDiv += '<span class="value">' + (result || '-') + '</span>';
                     }
                     resultDiv += '<span class="units">' + theVar.units + '</span></div>';
 
@@ -394,7 +400,7 @@
                     if (this.options.showCalcDetail && resultTermsInfo) {
                         // make a list of columns to show
                         var columns = [];
-                        for (var col in resultTermsInfo[0]) { columns.push(col) }
+                        for (var col in resultTermsInfo[0]) { columns.push(col); }
                         columns.sort();
 
                         var info = '';
@@ -445,7 +451,7 @@
 
                 this.log(' ..condition is: ' + condition, 'debug');
 
-                if (eval(condition)) {
+                if (eval(condition)) {  // jshint ignore:line
                     this.log(' ..conclusion is true', 'debug');
                     this.output.innerHTML += '<div class="conclusion">' + content + '</div>';
                 } else {
@@ -471,7 +477,7 @@
         },
         // ----------------------------------------------------------
         noConflict: function() {
-            window.figureit = oldFigureit;
+            window.workit = oldWorkit;
         }
         // ----------------------------------------------------------
     };

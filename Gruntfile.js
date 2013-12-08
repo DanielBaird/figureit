@@ -21,13 +21,22 @@ module.exports = function(grunt) {
         cssmin: {
             minify: {
                 options: {
-                    banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                    banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= grunt.template.today("yyyy-mm-dd") %> */',
                 },
                 expand: true,
                 cwd: 'src/',
                 src: ['*.css'],
                 dest: 'dist/',
                 ext: '.min.css'
+            }
+        },
+        // ----------------------------------------------------------
+        copy: {
+            main: {
+                files: [
+                    { expand: true, cwd: 'src/', src: ['*.js'], dest: 'dist/', filter: 'isFile' },
+                    { expand: true, cwd: 'src/', src: ['*.css'], dest: 'dist/', filter: 'isFile' },
+                ]
             }
         },
         // ----------------------------------------------------------
@@ -40,6 +49,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // ==============================================================
     // tasks
